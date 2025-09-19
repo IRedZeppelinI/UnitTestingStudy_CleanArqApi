@@ -10,9 +10,4 @@
     <ProjectReference Include="..\ContadorTabaco.Domain\ContadorTabaco.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="15.0.1" />
-    <PackageReference Include="MediatR" Version="13.0.0" />
-  </ItemGroup>
-
 </Project>

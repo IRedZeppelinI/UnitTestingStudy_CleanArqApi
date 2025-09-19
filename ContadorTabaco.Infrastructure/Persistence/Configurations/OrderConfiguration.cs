@@ -23,8 +23,8 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
             .IsRequired();
 
         builder.HasOne(o => o.Product)
-            .WithMany()
-            .HasForeignKey(o => o.Product.Id)
+            .WithMany(p => p.Orders)
+            .HasForeignKey(o => o.ProductId)
             .IsRequired();           
         
     }

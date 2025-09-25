@@ -79,4 +79,24 @@ public class GetAllProductsQueryHandlerTests
         */
 
     }
+
+    [Fact]
+    public async Task Handle_WhenProduct_NOT_Exist_MustReturnEmptyListOfProductsDto()
+    {
+        // --- ARRANGE ---
+        // A única coisa que muda é que configuramos o mock para devolver uma lista vazia.
+        _mockProductRepository.Setup(repo => repo
+            .GetAllAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new List<Product>());
+
+        var handler = new GetAllProductsQueryHandler(_mockProductRepository.Object, _mapper);
+
+        // --- ACT ---
+        var result = await handler.Handle(new GetAllProductsQuery(), new CancellationToken());
+
+        // --- ASSERT ---
+        Assert.NotNull(result);
+        Assert.Empty(result); // Um Assert do xUnit específico para verificar listas vazias.
+                              // ou Assert.Equal(0, result.Count);
+    }
 }

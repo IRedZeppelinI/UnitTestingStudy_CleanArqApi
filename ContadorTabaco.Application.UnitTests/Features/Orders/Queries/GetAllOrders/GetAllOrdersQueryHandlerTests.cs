@@ -32,27 +32,13 @@ public class GetAllOrdersQueryHandlerTests
         var produtoA = new Product { Id = 1, Name = "Marlboro Red", Price = 5.20m };
         var produtoB = new Product { Id = 2, Name = "Camel Blue", Price = 5.00m };
 
-        var mockOrders = new List<Order>
-        {
-            new Order()
-            {
-                Id = 101,
-                Quantity = 2,
-                TotalCost = 10.40m,
-                OrderDate = DateTime.Now.AddDays(-1),
-                ProductId = produtoA.Id, 
-                Product = produtoA      
-            },
-            new Order()
-            {
-                Id = 102,
-                Quantity = 3,
-                TotalCost = 15.00m,
-                OrderDate = DateTime.Now,
-                ProductId = produtoB.Id, 
-                Product = produtoB      
-            }
-        };
+        var orderA = Order.Create(produtoA, 2, DateTime.Now.AddDays(-1));
+        orderA.Id = 101; // Atribuímos o ID manualmente para o teste
+
+        var orderB = Order.Create(produtoB, 3, DateTime.Now);
+        orderB.Id = 102; // Atribuímos o ID manualmente para o teste
+
+        var mockOrders = new List<Order> { orderA, orderB };
 
         _mockOrderRepository.Setup(repo => repo
             .GetAllAsync(It.IsAny<CancellationToken>()))

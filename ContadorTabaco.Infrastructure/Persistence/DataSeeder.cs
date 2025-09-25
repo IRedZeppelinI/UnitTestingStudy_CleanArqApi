@@ -31,10 +31,10 @@ public static class DataSeeder
         // 3. Criar as encomendas, usando as propriedades de navegação.
         var orders = new List<Order>
         {
-            new() { Quantity = 2, Product = productMarlboroRed, TotalCost = 2 * 5.20m, OrderDate = new DateTime(2025, 9, 15) },
-            new() { Quantity = 1, Product = productGoldenVirginia, TotalCost = 1 * 6.10m, OrderDate = new DateTime(2025, 9, 16) },
-            new() { Quantity = 5, Product = productIqosHeets, TotalCost = 5 * 4.50m, OrderDate = new DateTime(2025, 9, 17) },
-            new() { Quantity = 1, Product = productMarlboroRed, TotalCost = 1 * 5.20m, OrderDate = new DateTime(2025, 9, 18) }
+            Order.Create(productMarlboroRed, 2, new DateTime(2025, 9, 15)),
+            Order.Create(productGoldenVirginia, 1, new DateTime(2025, 9, 16)),
+            Order.Create(productIqosHeets, 5, new DateTime(2025, 9, 17)),
+            Order.Create(productMarlboroRed, 1, new DateTime(2025, 9, 18))
         };
 
         // 4. Adicionar as encomendas ao contexto.

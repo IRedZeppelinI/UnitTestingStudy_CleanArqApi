@@ -32,6 +32,7 @@ public class GetAllProductsQueryHandlerTests
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public async Task Handle_WhenProductsExist_MustReturnListOfProductsDTO()
     {
         // --- ARRANGE (Preparação específica do teste) ---
@@ -44,7 +45,7 @@ public class GetAllProductsQueryHandlerTests
         };
 
         // 2. Configuramos o nosso mock para devolver esses dados.
-        _mockProductRepository.Setup(repo => repo
+        _mockProductRepository.Setup(repo => repo   
             .GetAllAsync(It.IsAny<CancellationToken>()))
             .ReturnsAsync(productsFromDb);
 
@@ -81,6 +82,7 @@ public class GetAllProductsQueryHandlerTests
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public async Task Handle_WhenProduct_NOT_Exist_MustReturnEmptyListOfProductsDto()
     {
         // --- ARRANGE ---

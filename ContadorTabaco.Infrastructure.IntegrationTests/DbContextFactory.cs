@@ -26,7 +26,6 @@ public static class DbContextFactory
         var context = new AppDbContext(options);
 
         context.Database.EnsureDeleted();
-        //context.Database.EnsureCreated();
         context.Database.Migrate();
 
         return context;

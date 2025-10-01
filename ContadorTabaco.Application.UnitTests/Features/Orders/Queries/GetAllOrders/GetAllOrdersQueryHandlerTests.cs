@@ -27,6 +27,7 @@ public class GetAllOrdersQueryHandlerTests
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public async Task Handle_WhenOrdersExist_MustReturnListOfOrdersDto()
     {
         var produtoA = new Product { Id = 1, Name = "Marlboro Red", Price = 5.20m };
@@ -64,6 +65,7 @@ public class GetAllOrdersQueryHandlerTests
     }
 
     [Fact]
+    [Trait("Category", "Unit")]
     public async Task Handle_WhenOrders_NOT_Exist_MustReturnEmptyListOfOrdersDto()
     {
         // --- ARRANGE ---

@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContadorTabaco.Application.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContadorTabaco.Infrastructure.IntegrationTests", "ContadorTabaco.Infrastructure.IntegrationTests\ContadorTabaco.Infrastructure.IntegrationTests.csproj", "{A0B996C2-FE1D-4C3A-90DC-C5557956AE85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContadorTabaco.Api.FunctionalTests", "ContadorTabaco.Api.FunctionalTests\ContadorTabaco.Api.FunctionalTests.csproj", "{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,6 +104,18 @@ Global
 		{A0B996C2-FE1D-4C3A-90DC-C5557956AE85}.Release|x64.Build.0 = Release|Any CPU
 		{A0B996C2-FE1D-4C3A-90DC-C5557956AE85}.Release|x86.ActiveCfg = Release|Any CPU
 		{A0B996C2-FE1D-4C3A-90DC-C5557956AE85}.Release|x86.Build.0 = Release|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Debug|x64.Build.0 = Debug|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Debug|x86.Build.0 = Debug|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Release|x64.ActiveCfg = Release|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Release|x64.Build.0 = Release|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Release|x86.ActiveCfg = Release|Any CPU
+		{4FFFB7F9-4802-4387-94B2-7FD29A561F0F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

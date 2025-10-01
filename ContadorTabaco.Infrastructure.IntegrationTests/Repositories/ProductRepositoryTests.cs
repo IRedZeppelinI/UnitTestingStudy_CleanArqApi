@@ -5,6 +5,7 @@ using System.Net;
 
 namespace ContadorTabaco.Infrastructure.IntegrationTests.Repositories;
 
+[Collection("DatabaseTests")]
 public class ProductRepositoryTests : IDisposable
 {
     private readonly AppDbContext _context;
@@ -15,6 +16,7 @@ public class ProductRepositoryTests : IDisposable
     }
 
     [Fact]
+    [Trait("Category", "Integration")]
     public async Task GetByIdAsync_WhenProductExists_MustReturnCorrectProduct()
     {
         // --- ARRANGE (Preparar) ---
@@ -49,6 +51,7 @@ public class ProductRepositoryTests : IDisposable
     }
 
     [Fact]
+    [Trait("Category", "Integration")]
     public async Task GetAllAsync_WhenProductExists_MustReturnProductList()
     {
         // --- ARRANGE (Preparar) ---
@@ -78,8 +81,37 @@ public class ProductRepositoryTests : IDisposable
         // Como seria com FluentAssertions:
         using FluentAssertions;
         result.Should().NotBeNull();
-
+        result.Should().BeOfType<List<Product>>();
         result.First().Name.Should().Be("Produto A");
+        */
+    }
+
+    [Fact]
+    [Trait("Category", "Integration")]
+    public async Task GetAllAsync_WhenProduct_NOT_Exists_MustReturnEmptyProductList()
+    {
+        // --- ARRANGE (Preparar) ---
+                
+
+        
+        var repository = new ProductRepository(_context);
+
+        // --- ACT (Ação) ---
+        
+        var result = await repository.GetAllAsync(CancellationToken.None);
+
+        // --- ASSERT (Verificação) ---
+        
+        Assert.NotNull(result);
+        Assert.IsType<List<Product>>(result);
+        Assert.Empty(result);
+
+        /*
+        // Como seria com FluentAssertions:
+        using FluentAssertions;
+        result.Should().NotBeNull();
+        result.Should().BeOfType<List<Product>>();
+        
         */
     }
 

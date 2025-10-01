@@ -18,4 +18,11 @@ public class OrderRepository : IOrderRepository
     {
         return await _context.Orders.Include(o => o.Product).AsNoTracking().ToListAsync(cancellationToken);
     }
+
+    public async Task<Order?> GetByIdAsync(int id, CancellationToken cancellationToken)
+    {
+        return await _context.Orders
+            .Include(o => o.Product)
+            .FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
+    }
 }

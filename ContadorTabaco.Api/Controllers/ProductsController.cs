@@ -1,5 +1,6 @@
 ﻿using ContadorTabaco.Application.Features.Products.Dtos;
 using ContadorTabaco.Application.Features.Products.Queries.GetAllProducts;
+using ContadorTabaco.Application.Features.Products.Queries.GetProductById;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -25,4 +26,14 @@ public class ProductsController : Controller
 
         return Ok(products);
     }
+
+    [HttpGet(template: "{id}", Name ="GetProductById")]
+    public async Task<ActionResult<ProductDto>> GetById(int id, CancellationToken cancellationToken)
+    {
+        var query = new GetProductByIdQuery(id);
+        var result = await _mediator.Send(query,cancellationToken);
+
+        return result is not null ? Ok(result) : NotFound();
+    }
+
 }

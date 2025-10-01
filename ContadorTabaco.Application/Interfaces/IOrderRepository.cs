@@ -5,4 +5,5 @@ namespace ContadorTabaco.Application.Interfaces;
 public interface IOrderRepository
 {
     Task<List<Order>> GetAllAsync(CancellationToken cancellationToken);
+    Task<Order?> GetByIdAsync(int id, CancellationToken cancellationToken);
 }

@@ -1,4 +1,5 @@
-﻿using ContadorTabaco.Application.Features.Products.Dtos;
+﻿using ContadorTabaco.Application.Features.Products.Commands.CreateProduct;
+using ContadorTabaco.Application.Features.Products.Dtos;
 using ContadorTabaco.Application.Features.Products.Queries.GetAllProducts;
 using ContadorTabaco.Application.Features.Products.Queries.GetProductById;
 using MediatR;
@@ -34,6 +35,23 @@ public class ProductsController : Controller
         var result = await _mediator.Send(query,cancellationToken);
 
         return result is not null ? Ok(result) : NotFound();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<ProductDto>> Create(
+        [FromBody] CreateProductCommand command,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var newProductId = await _mediator.Send(command, cancellationToken);
+            var newProduct = await _mediator.Send(new GetProductByIdQuery(newProductId), cancellationToken);
+            return CreatedAtRoute("GetProductById", new { id = newProductId }, newProduct);
+        }
+        catch (Exception ex)
+        {
+            return Problem($"Ocorreu um erro inesperado ao processar o seu pedido. {ex.Message}");
+        }        
     }
 
 }

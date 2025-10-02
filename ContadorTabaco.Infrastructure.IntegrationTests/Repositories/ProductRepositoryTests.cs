@@ -1,6 +1,8 @@
 ﻿using ContadorTabaco.Domain.Entities;
 using ContadorTabaco.Infrastructure.Persistence;
 using ContadorTabaco.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Contracts;
 using System.Net;
 
 namespace ContadorTabaco.Infrastructure.IntegrationTests.Repositories;
@@ -114,6 +116,26 @@ public class ProductRepositoryTests : IDisposable
         
         */
     }
+
+    [Fact]
+    [Trait("Category", "Integration")]
+    public async Task AddedProductIsOnDatabase()
+    {
+        var repository = new ProductRepository(_context);
+        var unitOfWork = new UnitOfWork(_context);
+
+        var productsToAdd = new Product { Name = "Produto A", Price = 10.0m };
+        
+        await repository.AddAsync(productsToAdd, CancellationToken.None);
+        await unitOfWork.SaveChangesAsync(CancellationToken.None);
+
+        var result = await _context.Products.FirstAsync();
+
+        Assert.NotNull(result);
+        Assert.IsType<Product>(result);
+        Assert.Equal(productsToAdd.Name, result.Name);
+    }
+
 
     public void Dispose()
     {

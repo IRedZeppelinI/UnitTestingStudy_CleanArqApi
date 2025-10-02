@@ -13,6 +13,7 @@ public class ProductRepository : IProductRepository
     {
         _context = appDbContext;
     }
+        
 
     public async Task<List<Product>> GetAllAsync(CancellationToken cancellationToken)
     {
@@ -22,5 +23,9 @@ public class ProductRepository : IProductRepository
     public async Task<Product?> GetByIdAsync(int id, CancellationToken cancellationToken)
     {
         return await _context.Products.FindAsync(new object[] { id}, cancellationToken);
+    }
+    public async Task AddAsync(Product product, CancellationToken cancellationToken)
+    {
+        await _context.Products.AddAsync(product, cancellationToken);
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using ContadorTabaco.Application.Features.Products.Commands.CreateProduct;
 using ContadorTabaco.Application.Features.Products.Dtos;
 using ContadorTabaco.Domain.Entities;
 using FluentAssertions;
@@ -123,6 +124,45 @@ public class ProductEndpointsTests : IClassFixture<CustomWebApplicationFactory>,
         // 5. Verificamos a resposta
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);        
 
+    }
+
+
+    [Fact]
+    [Trait("Category", "Functional")]
+    public async Task WhenProductIsCreated_MustReturn201OkAndCreatedAtRoute()
+    {
+        await ResetDatabaseAsync();
+
+        //using var scope = _factory.Services.CreateScope();
+        //var context = scope.ServiceProvider.GetRequiredService<Infrastructure.Persistence.AppDbContext>();
+
+        var newProductCommand = new CreateProductCommand { Name = "Novo Produto Teste", Price = 15.50m };
+
+        var response = await _client.PostAsJsonAsync("/api/Products", newProductCommand);
+
+        // --- ASSERT ---
+
+        // 1. Verificamos o código de estado.
+        Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+
+        // 2. Verificamos o cabeçalho "Location".
+        Assert.NotNull(response.Headers.Location);
+        Assert.Contains("/api/Products/", response.Headers.Location.OriginalString);
+
+        // 3. Verificamos o corpo da resposta.
+        var createdProductDto = await response.Content.ReadFromJsonAsync<ProductDto>();
+        Assert.NotNull(createdProductDto);
+        Assert.Equal(newProductCommand.Name, createdProductDto.Name);
+        Assert.Equal(newProductCommand.Price, createdProductDto.Price);
+        Assert.True(createdProductDto.Id > 0, "O ID gerado pela base de dados deve ser maior que 0.");
+
+        // 4. A PROVA FINAL (Verificação direta na base de dados).
+        using var scope = _factory.Services.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<Infrastructure.Persistence.AppDbContext>();
+        var productInDb = await context.Products.FindAsync(createdProductDto.Id);
+
+        Assert.NotNull(productInDb);
+        Assert.Equal(newProductCommand.Name, productInDb.Name);
     }
 
     public void Dispose()

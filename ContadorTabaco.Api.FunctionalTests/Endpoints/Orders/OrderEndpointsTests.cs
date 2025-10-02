@@ -57,6 +57,7 @@ public class OrderEndpointsTests : IClassFixture<CustomWebApplicationFactory>, I
         orderDto.Id.Should().Be(orderToAdd.Id);
         orderDto.ProductId.Should().Be(productToAdd.Id);
     }
+      
     
 
 
